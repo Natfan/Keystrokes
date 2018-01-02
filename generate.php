@@ -1,26 +1,26 @@
 <?php
     function iscsv($fileName) {
-        $ext = explode('.', $fileName);
-        if ($ext[count($ext)-1] != 'csv') {
-            return false;
-        } else {
+        if (strlen($fileName) < 3) { return false; }
+        $ext = substr($fileName, -3);
+        if ($ext == "csv") {
             return true;
+        } else {
+            return false;
         }
     }
 
     function validatecsv($fileName) {
-        if (iscsv($fileName) == false) {
-            $ext = explode('.', $fileName);
-            array_push($ext, 'csv');
-            echo "added 'csv' to the end of this array, it is now:", implode('', $ext);
+        if (!iscsv($fileName)) {
+            $fileName .= ".csv";
+            echo "added 'csv' to the end of this array, it is now:", $fileName;
+            return $fileName;
         }
     }
 
-    function getdata($variableName, $fileName) {
-        echo iscsv($fileName) ? "yes" : "not. yet.";
+    function getdata($fileName) {
+        echo iscsv($fileName) ? "yes" : "no";
         validatecsv($fileName);
     }
 
     getdata("hello.csv.cake.apple.");
-            //tood: i feel like this is wrong but its 4:14am so this is probably one of the worst pieces of code i've ever written oh god im tiredd and should sleep
 ?>
